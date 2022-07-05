@@ -1,59 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Ghenaut- <ghenaut-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
+/*   Created: 2022/07/05 18:52:08 by Ghenaut-          #+#    #+#             */
 /*   Updated: 2022/07/05 20:34:58 by Ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	free_split(char **split)
+int	find_mod(float value)
 {
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	if (value < 0)
+		return (-value);
+	else
+		return (value);
 }
 
-static void	free_matrix(int **matrix, int y)
+int	find_max(float a, float b)
 {
-	int	i;
-
-	if (!matrix)
-		return ;
-	i = 0;
-	while (i < y)
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
+	if (a < b)
+		return (b);
+	else
+		return (a);
 }
 
-static void	free_window(t_fdf *data)
+int	find_color(float z, float z1, int color)
 {
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-}
-
-int	clean_exit(t_fdf *data)
-{
-	free_matrix(data->matrix, data->y);
-	free_window(data);
-	exit(0);
-	return (0);
+	if (z || z1)
+		return (color);
+	else
+		return (0xffffff);
 }

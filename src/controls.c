@@ -1,59 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Ghenaut- <ghenaut-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 17:00:23 by ghenaut-          #+#    #+#             */
+/*   Created: 2022/07/05 16:30:39 by Ghenaut-          #+#    #+#             */
 /*   Updated: 2022/07/05 20:34:58 by Ghenaut-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	free_split(char **split)
+int	arrows_down(int key, t_fdf *data)
 {
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
+	if (key == 113 || key == 65307)
 	{
-		free(split[i]);
-		i++;
+		clean_exit(data);
+		return (0);
 	}
-	free(split);
-}
-
-static void	free_matrix(int **matrix, int y)
-{
-	int	i;
-
-	if (!matrix)
-		return ;
-	i = 0;
-	while (i < y)
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
-}
-
-static void	free_window(t_fdf *data)
-{
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-}
-
-int	clean_exit(t_fdf *data)
-{
-	free_matrix(data->matrix, data->y);
-	free_window(data);
-	exit(0);
+	draw(data);
 	return (0);
 }
